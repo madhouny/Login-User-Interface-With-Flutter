@@ -1,0 +1,193 @@
+#Objectif : Creer une Login UI Interface Utilisateur 
+-----------------------------------------------------
+
+# Creer un projet Flutter Vide avec Android Studio
+# Creer un repertoire assets dans le root du projet, puis ajouter les images en pj,
+# Modifier le fichier pubspec.yaml, pour acceder au repertoire assets
+assets:
+    - assets/logo.png
+    - assets/alucard.jpg
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/Nunito.ttf
+-------------------login_page.dart------------------------
+
+#Creer un login_page.dart dans le repertoire lib,
+#Creer une class(LoginPage) de type statfull widget a l'aide de la commade stfull 
+#Dans la methode Build, Creer les widget Suivants: 
+
+=> Creer un logo : 
+final logo = Hero(
+      //tag: 'hero',
+      child: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        radius: 48.0,
+        child: Image.asset('assets/logo.png'),
+      ),
+    );
+
+=> Creer un Champ Email :
+  final email = TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      autofocus: false,
+      initialValue: 'miashs@uga.fr',
+      decoration: InputDecoration(
+        hintText: 'email',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(32.0)
+        ),
+      ),
+    );
+
+=> Creer un Champ Password :
+ final password = TextFormField(
+      autofocus: false,
+      initialValue: 'Password',
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0)
+        ),
+      ),
+    );
+
+=> Creer un boutton Login :
+ final loginBtn = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(30.0),
+        shadowColor: Colors.lightBlueAccent.shade100,
+        elevation: 5.0,
+        child: MaterialButton(
+          minWidth: 200.0,
+          height: 42.0,
+          onPressed: (){},
+          color:Colors.lightBlueAccent,
+          child: Text('LogIn', style: TextStyle(color: Colors.white),),
+        ) ,
+      ),
+    );
+
+=> Creer un Label : 
+final forgotLabel = FlatButton(
+      child: Text('Forgot Password?',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: (){},
+    );
+
+------------------Return-----------------------------------
+
+=> La methode Return, devrai retourner toutes les element crées au dessus : 
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: [
+          logo,
+            SizedBox(height: 48.0),
+          email,
+            SizedBox(height: 8.0,),
+            password,
+            SizedBox(height: 24.0,),
+            loginBtn,
+            forgotLabel
+          ],
+        ),
+      ),
+    );
+
+----------------------Main.dart--------------------------------
+
+ @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'UI LOGIN',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.lightBlue,
+          fontFamily: 'Nunito',
+        ),
+        home: LoginPage(),
+    );
+  }
+
+----------------home_page.dart----------------------------
+
+#Creer une page, home_page.dart
+#Creer une class(LoginPage) de type statfull widget a l'aide de la commade stless
+#Dans la methode build , Creer les widget Suivants :
+
+=> Home : 
+
+final home = Hero(
+      tag: 'hero',
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: CircleAvatar(
+          radius: 72.0,
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage('assets/alucard.jpg'),
+        ),
+      ),
+    );
+
+=> Welcome:
+
+    final welcome = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text('Welcome Master MIASHS',
+      style: TextStyle(fontSize: 28.0, color: Colors.white),),
+    );
+
+=>Texte: 
+
+  final Texte = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text('Bonjour, Celui ci est Tp pour la matiere IHM donnant une bref presentation de la technologie FLUTTER ',
+        style: TextStyle(fontSize: 16.0, color: Colors.white),),
+    );
+
+=>Body:
+
+ final body = Container(
+    width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(28.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colors.blue,
+          Colors.lightBlueAccent
+        ]),
+      ),
+      child: Column(children: [
+        home,welcome,texte
+      ],),
+    );
+
+-------------------Return Method-----------------------
+
+ return Scaffold(
+      body: body,
+    );
+-------------------------------------------------------
+
+#Ajouter les deux routes HomePage & loginPage dans le fichier main.dart
+
+final routes = <String, WidgetBuilder>{
+    LoginPage.tag:(context)=>LoginPage(),
+    HomePage.tag:(context)=>HomePage()
+  };
+
+#Finally Ajouter la route HomePage dans la fonction OnPressed dans le widget loginBtn
+
+onPressed: (){
+            Navigator.of(context).pushNamed(HomePage.tag);
+          },
+
+
